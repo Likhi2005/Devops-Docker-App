@@ -1,0 +1,15 @@
+{
+  "name": "api-node",
+  "version": "1.0.0",
+  "description": "use docker database in backend to handle data",
+  "license": "ISC",
+  "author": "Likhith",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
