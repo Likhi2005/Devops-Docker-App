@@ -16,10 +16,10 @@ function CurrentTime(props){
     queryFn : () =>
       axios.get(`${props.api}`).then((res) => res.data)
   });
-
   if (isLoading) return `Loading ${props.api}...`;
 
   if (error) return "An error has occurred: " + error.message;
+  console.log(data);
 
   return (
     <div>

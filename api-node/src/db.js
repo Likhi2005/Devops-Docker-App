@@ -32,6 +32,7 @@ const getDateTime = async () => {
         const res = await client.query('SELECT NOW() as now;');
         return res.rows[0];
     } catch (err) {
+        console.log('Database error occured');
         console.log(err.stack);
     } finally {
         client.release();
