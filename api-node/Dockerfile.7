@@ -1,0 +1,36 @@
+# Base image
+FROM node:18-alpine
+
+# Build argument
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+# Working directory
+WORKDIR /usr/src/app
+
+# Copy dependency metadata first (layer caching)
+COPY package*.json ./
+
+# Install dependencies based on NODE_ENV
+RUN --mount=type=cache,target=/usr/src/app/.npm \
+    npm set cache /usr/src/app/.npm && \
+    if [ "$NODE_ENV" = "production" ]; then \
+    npm ci --only=production; \
+    else \
+    npm install; \
+    fi
+
+# Use non-root user
+USER node
+
+# Copy the healthcheck script
+COPY --chown=node:node ./healthcheck/ ./
+
+# Copy source code
+COPY --chown=node:node ./src/ ./
+
+# Expose port
+EXPOSE 3000
+
+# Start command
+CMD ["node", "index.js"]

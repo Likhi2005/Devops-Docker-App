@@ -20,7 +20,7 @@ app.get('/ping', async (_,res) => {
     res.send('ping')
 });
 
-const server = app.listen(port, () => {
+const server = app.listen(port,'0.0.0.0', () => {
     console.log(`API Node server listening at http://localhost:${port}`);
 })
 

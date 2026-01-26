@@ -22,11 +22,14 @@ const pool = new Pool({
 
 pool.on('error', (err, client) => {
     console.error('Unexpected error on idle client', err);
-    process.exit(-1);
+    // process.exit(-1);
 });
 
 // async/await - check out a client
 const getDateTime = async () => {
+    if (!pool) {
+        throw new Error('Database not configured');
+    }
     const client = await pool.connect();
     try {
         const res = await client.query('SELECT NOW() as now;');
